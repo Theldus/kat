@@ -32,7 +32,7 @@ LDFLAGS  = -lm
 
 C_SRC   =  $(wildcard *.c)
 OBJ     = $(C_SRC:.c=.o)
-LIB     =  kat.ar
+LIB     =  libkat.ar
 LIB_OBJ = $(filter-out main.o, $(OBJ))
 
 # Conflicts.
@@ -63,5 +63,5 @@ bench: kat
 
 # Clean rule
 clean:
-	@rm -f $(OBJ) kat kat.ar
+	@rm -f $(OBJ) kat libkat.ar
 	$(MAKE) -C example/ clean

@@ -31,7 +31,7 @@ LDFLAGS  = -lm
 
 C_SRC   =  $(wildcard *.c)
 OBJ     = $(C_SRC:.c=.o)
-LIB     =  kat.ar
+LIB     =  libkat.ar
 
 all: ex1
 
