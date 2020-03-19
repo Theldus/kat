@@ -36,7 +36,7 @@ LIB     =  libkat.ar
 all: ex1
 
 ex1: $(LIBDIR)/$(LIB) ex1.c
-	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBDIR)/$(LIB)
+	$(CC) $^ $(CFLAGS) -o $@ $(LIBDIR)/$(LIB) $(LDFLAGS)
 
 # Clean rule
 clean:

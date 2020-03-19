@@ -32,7 +32,7 @@
  * @param errcode Return error code.
  * @param msg Message to be printed.
  */
-inline void quit(int errcode, const char *msg)
+static inline void quit(int errcode, const char *msg)
 {
 	puts(msg);
 	exit(errcode);
