@@ -26,7 +26,7 @@ EXAMPLE = $(CURDIR)/example
 
 CFLAGS   = -Wall -Wextra
 CFLAGS  += -I $(INCLUDE)
-CFLAGS  += -std=c99 -O3
+CFLAGS  += -std=c99 -O3 -march=native
 ARFLAGS  = cru
 LDFLAGS  = -lm
 

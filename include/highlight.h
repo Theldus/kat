@@ -34,6 +34,7 @@
 
 	/* External definitions. */
 	extern char *COLORS[];
+	extern int LENGTHS[];
 	extern unsigned char symbols_table[];
 	extern int CURRENT_THEME;
 
@@ -91,7 +92,7 @@
 	 *
 	 * @return Returns a Highlighted Line Buffer.
 	 */
-	extern char *highlight_line(const char *line, char *hl);
+	extern char *highlight_line(const char *line, char *hl, size_t str_size);
 
 	/**
 	 * Initialize the syntax highlight engine.
@@ -192,7 +193,8 @@
 	{
 		if (symbols_table[c])
 		{
-			*hl = add_str_to_hl(*hl, COLORS[CURRENT_THEME+SYMBOL_COLOR], 0);
+			*hl = add_str_to_hl(*hl, COLORS[CURRENT_THEME+SYMBOL_COLOR],
+				LENGTHS[CURRENT_THEME+SYMBOL_COLOR]);
 			*hl = add_char_to_hl(*hl, c);
 			*hl = add_str_to_hl(*hl, RESET_COLOR, 4);
 			return (1);

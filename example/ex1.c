@@ -62,6 +62,12 @@ int main()
 	 *      char* highlight_alloc_line(void);
 	 *   or pass NULL as parameter.
 	 *
+	 * str_size:
+	 *   str_size is an (optional if eq 0) parameter that informs
+	 *   in beforehand the string size; it is useful for constant
+	 *   strings that are used frequently (avoids unnecessaries strlen
+	 *   calls).
+	 *
 	 * In case of hl == NULL, Kat will allocate a new expandable line
 	 * and returns it, if not NULL, Kat will return the previous buffer
 	 * with the new highlighted line.
@@ -75,13 +81,13 @@ int main()
 	 * as multiline comments. Kat keeps a global state to handle these
 	 * cases.
 	 */
-	line = highlight_line("#include <stdio.h>", NULL);
+	line = highlight_line("#include <stdio.h>", NULL, 0);
 	puts(line);
-	line = highlight_line("int main(int argc, char **argv){ /* Comment. */", line);
+	line = highlight_line("int main(int argc, char **argv){ /* Comment. */", line, 0);
 	puts(line);
-	line = highlight_line("    printf(\"Hello World \%s\\n\", argv[1]);", line);
+	line = highlight_line("    printf(\"Hello World \%s\\n\", argv[1]);", line, 0);
 	puts(line);
-	line = highlight_line("}", line);
+	line = highlight_line("}", line, 0);
 	puts(line);
 
 	highlight_free(line);

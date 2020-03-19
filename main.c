@@ -47,6 +47,7 @@
  */
 
 #define _POSIX_C_SOURCE 200809L
+#include <unistd.h>
 #include "highlight.h"
 
 #define OPTPARSE_IMPLEMENTATION
@@ -75,16 +76,17 @@ void usage(int code)
  */
 int main(int argc, char **argv)
 {
-	FILE *fp;                /* File pointer.               */
-	char *line;              /* Current line.               */
-	size_t len;              /* Allocated size.             */
-	ssize_t read;            /* Bytes read.                 */
-	char *hl;                /* Currently highlighted line. */
-	char *buff;              /* Buffer to be dumped.        */
-	int option;              /* Current option.             */
-	struct optparse options; /* Optparse options.           */
-	char *theme_file = NULL; /* Theme file.                 */
-	char *targ_file = NULL;  /* Target file, if any.        */
+	FILE *fp;                /* File pointer.                     */
+	char *line;              /* Current line.                     */
+	size_t len;              /* Allocated size.                   */
+	ssize_t read;            /* Bytes read.                       */
+	char *hl;                /* Currently highlighted line.       */
+	char *buff;              /* Buffer to be dumped.              */
+	int option;              /* Current option.                   */
+	struct optparse options; /* Optparse options.                 */
+	char *theme_file = NULL; /* Theme file.                       */
+	char *targ_file = NULL;  /* Target file, if any.              */
+	struct highlighted_line *high; /* Highlighted line structure. */
 
 	fp = stdin;
 
@@ -146,24 +148,17 @@ int main(int argc, char **argv)
 	/* Read the entire file. */
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
-		/* Remove line break. */
-		line[strlen(line)-1] = '\0';
-
 		/* Highlight. */
-		hl = highlight_line(line, hl);
-
-		/* Replace '\0' to '\n'. */
-		hl[strlen(hl)] = '\n';
-
-		/* Add '\0' into our string. */
-		hl = add_char_to_hl(hl, '\0');
+		hl = highlight_line(line, hl, read);
+		high = ((struct highlighted_line *)hl - 1);
 
 		/* Add our string into our buffer. */
-		buff = add_str_to_hl(buff, hl, 0 );
+		buff = add_str_to_hl(buff, hl, high->idx - 1);
 	}
 
 	buff = add_char_to_hl(buff, '\0');
-	puts(buff);
+	high = ((struct highlighted_line *)buff - 1);
+	write(fileno(stdout), buff, high->idx - 1);
 
 	highlight_free(hl);
 	highlight_free(buff);
