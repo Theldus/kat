@@ -53,7 +53,8 @@ state.
 <td>
 
 ```c
-char *highlight_line(const char *line, char *hl);
+char *highlight_line(const char *line, char *hl,
+	size_t str_size);
 ```
 
 </td>
@@ -68,6 +69,11 @@ is useful for reusing a string pointer
 returned from this same function. If NULL,
 _highlight_line_ will allocate a dynamic
 string and returns it.
+
+Optionally the user can provide the string size,
+by passing a value other than 0 to _str_size_.
+This can be useful for constant strings that are
+used multiples times.
 
 </td>
 <tr>
@@ -96,13 +102,13 @@ if (highlight_init(NULL) < 0)
 	quit(-1, "Unable to initialize the highlight!\n");
 
 /* Highlight some lines. */
-line = highlight_line("#include <stdio.h>", NULL);
+line = highlight_line("#include <stdio.h>", NULL, 0);
 puts(line);
-line = highlight_line("int main(int argc, char **argv){ /* Comment. */", line);
+line = highlight_line("int main(int argc, char **argv){ /* Comment. */", line, 0);
 puts(line);
-line = highlight_line("    printf(\"Hello World \%s\\n\", argv[1]);", line);
+line = highlight_line("    printf(\"Hello World \%s\\n\", argv[1]);", line, 0);
 puts(line);
-line = highlight_line("}", line);
+line = highlight_line("}", line, 0);
 puts(line);
 
 /* Free the allocated line and finalizes the highlighter context. */
@@ -161,7 +167,7 @@ The following files were tested and for each one, they were executed 8 times and
 - 1) **First test:** sqlite3.c (amalgamated version): 4.5MiB file and 133.611 lines of code.
 
 <p align="center">
-<img align="center" src="https://i.imgur.com/Sdn91sc.png" alt="cat vs kat vs bat with sqlite3.c">
+<img align="center" src="https://i.imgur.com/HJHFRPd.png" alt="cat vs kat vs bat with sqlite3.c">
 <br>
 cat vs kat vs bat with sqlite3.c
 </p>
@@ -169,7 +175,7 @@ cat vs kat vs bat with sqlite3.c
 - 2) **Second test:** highlight.c (from Kat's own source): 22.1kB file and 813 lines of code.
 
 <p align="center">
-<img align="center" src="https://i.imgur.com/27DjDnd.png" alt="cat vs kat vs bat with highlight.c">
+<img align="center" src="https://i.imgur.com/MXLAFRD.png" alt="cat vs kat vs bat with highlight.c">
 <br>
 cat vs kat vs bat with highlight.c
 </p>
