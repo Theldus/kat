@@ -538,7 +538,7 @@ char *highlight_line(const char *line, char *hl, size_t str_size)
 			case HL_CHAR:
 			{
 				/* Should we end char state?. */
-				if (line[i] == '\'' && line[i + 1] != '\'')
+				if (i == str_size || (line[i] == '\'' && line[i + 1] != '\''))
 				{
 					keyword_end = i - 1;
 					tok_size = keyword_end - keyword_start + 1;
@@ -558,7 +558,7 @@ char *highlight_line(const char *line, char *hl, size_t str_size)
 			case HL_STRING:
 			{
 				/* Should we end char state?. */
-				if ((line[i] == '"' && line[i - 1] != '\\') || i == str_size)
+				if (i == str_size || (line[i] == '"' && line[i - 1] != '\\'))
 				{
 					if (i == str_size)
 						keyword_end = i - 1;
@@ -637,7 +637,7 @@ char *highlight_line(const char *line, char *hl, size_t str_size)
 					}
 				}
 
-				if (i == str_size-1)
+				if (i >= str_size-1)
 				{
 					gs.state = HL_DEFAULT;
 					keyword_end = i;
