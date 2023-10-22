@@ -153,7 +153,7 @@ int main(int argc, char **argv)
 		high = ((struct highlighted_line *)hl - 1);
 
 		/* Add our string into our buffer. */
-		buff = add_str_to_hl(buff, hl, high->idx - 1);
+		buff = add_str_to_hl(buff, hl, high->idx > 0 ? high->idx - 1 : 0);
 	}
 
 	buff = add_char_to_hl(buff, '\0');
