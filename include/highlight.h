@@ -189,9 +189,9 @@
 	 * @param c Symbol to be highlighted.
 	 * @param hl Highlighted Line Buffer.
 	 */
-	INLINE static int highlight_symbol(int c, char **hl)
+	INLINE static int highlight_symbol(char c, char **hl)
 	{
-		if (symbols_table[c])
+		if (symbols_table[(unsigned char)c])
 		{
 			*hl = add_str_to_hl(*hl, COLORS[CURRENT_THEME+SYMBOL_COLOR],
 				LENGTHS[CURRENT_THEME+SYMBOL_COLOR]);
