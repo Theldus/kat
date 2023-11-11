@@ -195,7 +195,8 @@ struct keyword keywords_list[] = {
 	{"const",   KWRDS_COLOR}, {"continue", KWRDS_COLOR}, {"for",     KWRDS_COLOR},
 	{"void",    KWRDS_COLOR}, {"default",  KWRDS_COLOR}, {"goto",    KWRDS_COLOR},
 	{"sizeof",  KWRDS_COLOR}, {"volatile", KWRDS_COLOR}, {"do",      KWRDS_COLOR},
-	{"if",      KWRDS_COLOR}, {"static",   KWRDS_COLOR}, {"while",   KWRDS_COLOR}
+	{"if",      KWRDS_COLOR}, {"static",   KWRDS_COLOR}, {"inline",  KWRDS_COLOR},
+	{"while",   KWRDS_COLOR}
 };
 
 /* Hashtable keywords. */
