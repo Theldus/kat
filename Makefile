@@ -50,9 +50,8 @@ kat: $(OBJ)
 	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
 
 install:
-	@mkdir -p $(DESTDIR)/$(PREFIX)/bin
-	@cp -p kat $(DESTDIR)/$(PREFIX)/bin/kat
-	@chmod 755 $(DESTDIR)/$(PREFIX)/bin/kat
+	@install -d $(DESTDIR)$(PREFIX)/bin
+	@install -m 755 kat $(DESTDIR)$(PREFIX)/bin/kat
 
 # Kat library
 lib: $(LIB_OBJ)
