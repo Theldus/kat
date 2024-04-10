@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 CC ?= gcc
+PREFIX ?= /usr/local
 INCLUDE = $(CURDIR)/include
 EXAMPLE = $(CURDIR)/example
 
@@ -47,6 +48,11 @@ all: kat lib example
 # Main program
 kat: $(OBJ)
 	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
+
+install:
+	@mkdir -p $(DESTDIR)/$(PREFIX)/bin
+	@cp -p kat $(DESTDIR)/$(PREFIX)/bin/kat
+	@chmod 755 $(DESTDIR)/$(PREFIX)/bin/kat
 
 # Kat library
 lib: $(LIB_OBJ)
